@@ -8,6 +8,7 @@ SCRIPT=/tmp/access-${USER}-screen
 ssh $TV_USER@$TV_HOST <<EOF
 cat > $SCRIPT <<'EOF2'
 #!/bin/bash
+grep -q "$HOSTNAME" ~/.ssh/know_hosts || { echo "Please, do a first ssh before run this script!"; exit 0; }
 read -s -p "Enter \"$USER\" password for \"$HOSTNAME\": " SSHPASS
 echo; export SSHPASS
 sshpass -e ssh -L 5900:localhost:5900 $USER@$HOSTNAME 'x11vnc -localhost -viewonly -display :0'

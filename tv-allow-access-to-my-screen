@@ -1,17 +1,23 @@
 #!/bin/bash
 # Author: Paulo Jeronimo (@paulojeronimo, pj@paulojeronimo.info)
+#
+# Some useful references to things coded in this script:
+# 1) http://www.unixmantra.com/2014/03/a-simple-way-to-send-multiple-line-commands-over-ssh.html
+# 2) http://linuxcommando.blogspot.com.br/2008/10/how-to-disable-ssh-host-key-checking.html
 
 source ~/.tv || exit 1
 
 SCRIPT=/tmp/access-${USER}-screen
 
-ssh $TV_USER@$TV_HOST <<EOF
-cat > $SCRIPT <<'EOF2'
+ssh -T $TV_USER@$TV_HOST <<EOF
+cat <<'EOF2' > $SCRIPT
 #!/bin/bash
-grep -q "$HOSTNAME" ~/.ssh/know_hosts || { echo "Please, do a first ssh before run this script!"; exit 0; }
+set +x
+SSHOPTS='-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+grep -q "$HOSTNAME" ~/.ssh/known_hosts && unset SSHOPTS
 read -s -p "Enter \"$USER\" password for \"$HOSTNAME\": " SSHPASS
 echo; export SSHPASS
-sshpass -e ssh -L 5900:localhost:5900 $USER@$HOSTNAME 'x11vnc -localhost -viewonly -display :0'
+sshpass -e ssh \$SSHOPTS -L 5900:localhost:5900 $USER@$HOSTNAME 'x11vnc -localhost -viewonly -display :0'
 EOF2
 chmod +x $SCRIPT
 EOF

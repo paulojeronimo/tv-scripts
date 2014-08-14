@@ -1,0 +1,18 @@
+#!/bin/bash
+# Author: Paulo Jeronimo (@paulojeronimo, pj@paulojeronimo.info)
+
+source ~/.tv || exit 1
+
+SCRIPT=/tmp/access-${USER}-screen
+
+ssh $TV_USER@$TV_HOST <<EOF
+cat > $SCRIPT <<'EOF2'
+#!/bin/bash
+read -s -p "Enter \"$USER\" password for \"$HOSTNAME\": " SSHPASS
+echo; export SSHPASS
+sshpass -e ssh -L 5900:localhost:5900 $USER@$HOSTNAME 'x11vnc -localhost -viewonly -display :0'
+EOF2
+chmod +x $SCRIPT
+EOF
+
+ssh -t $TV_USER@$TV_HOST $SCRIPT

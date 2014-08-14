@@ -1,0 +1,15 @@
+#!/bin/bash
+# Author: Paulo Jeronimo (@paulojeronimo, pj@paulojeronimo.info)
+
+source ~/.tv || exit 1
+
+op=$1
+case $op in
+   on)
+      ssh $TV_USER@$TV_HOST 'export DISPLAY=:0; vinagre localhost --vnc-scale -f &' & ;;
+   off)
+      ssh $TV_USER@$TV_HOST 'pkill vinagre' ;;	
+   *) 
+      echo "You must specify \"on\" or \"off\"!"
+      exit 1 ;;
+esac

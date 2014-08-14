@@ -1,0 +1,8 @@
+#!/bin/bash
+# Author: Paulo Jeronimo (@paulojeronimo, pj@paulojeronimo.info)
+
+source ~/.tv || exit 1
+
+ssh -t -L 5900:localhost:5900 $TV_USER@$TV_HOST 'x11vnc -localhost -display :0' &
+sleep 3
+vinagre localhost --vnc-scale

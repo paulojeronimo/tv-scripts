@@ -1,0 +1,4 @@
+#!/bin/bash
+
+TV_USER=${TV_USER:-zabbix}
+TV_HOST=${TV_HOST:-tvmais2x.corp.caixa.gov.br}

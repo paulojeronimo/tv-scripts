@@ -1,6 +1,6 @@
 #!/bin/bash
 # Author: Paulo Jeronimo (@paulojeronimo, pj@paulojeronimo.info)
-
+set +x
 source ~/.tv || exit 1
 
 ssh-copy-id $TV_USER@$TV_HOST

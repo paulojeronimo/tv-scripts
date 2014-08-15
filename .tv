@@ -1,11 +1,15 @@
 #!/bin/bash
+set +x
 
-TV_USER=${TV_USER:-zabbix}
 TV_HOST=${TV_HOST:-tvmais2x.corp.caixa.gov.br}
 TV_IP=${TV_IP:-10.196.6.105}
+TV_USER=${TV_USER:-zabbix}
+TV_DISPLAY=${TV_DISPLAY:-:0}
 
-MY_HOST=`hostname -f`
-MY_IP=`hostname -i`
+MY_HOST=${MY_HOST:-`hostname -f`}
+MY_IP=${MY_IP:-`hostname -i`}
+MY_USER=${MY_USER:-$USER}
+MY_DISPLAY=${MY_DISPLAY:-:0}
 
 USE_HOSTNAME=false
 

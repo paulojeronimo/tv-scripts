@@ -4,10 +4,10 @@
 # Some useful references to things coded in this script:
 # 1) http://www.unixmantra.com/2014/03/a-simple-way-to-send-multiple-line-commands-over-ssh.html
 # 2) http://linuxcommando.blogspot.com.br/2008/10/how-to-disable-ssh-host-key-checking.html
-
+set +x
 source ~/.tv || exit 1
 
-SCRIPT=/tmp/access-${USER}-screen
+SCRIPT=/tmp/access-${MY_USER}-screen.$USER
 
 ssh -T $TV_USER@$TV_HOST <<EOF
 cat <<'EOF2' > $SCRIPT
@@ -15,9 +15,10 @@ cat <<'EOF2' > $SCRIPT
 set +x
 SSHOPTS='-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
 grep -q "$MY_HOST" ~/.ssh/known_hosts && unset SSHOPTS
-read -s -p "Enter \"$USER\" password for \"$MY_HOST\": " SSHPASS
+read -s -p "Enter \"$MY_USER\" password for \"$MY_HOST\": " SSHPASS
 echo; export SSHPASS
-sshpass -e ssh \$SSHOPTS -L 5900:localhost:5900 $USER@$MY_HOST 'x11vnc -localhost -viewonly -display :0'
+sshpass -e ssh \$SSHOPTS -L 5900:localhost:5900 $MY_USER@$MY_HOST \
+"x11vnc -localhost -viewonly -display $MY_DISPLAY"
 EOF2
 chmod +x $SCRIPT
 EOF

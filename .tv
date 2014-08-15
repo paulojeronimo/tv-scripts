@@ -2,3 +2,15 @@
 
 TV_USER=${TV_USER:-zabbix}
 TV_HOST=${TV_HOST:-tvmais2x.corp.caixa.gov.br}
+TV_IP=${TV_IP:-10.196.6.105}
+
+MY_HOST=`hostname -f`
+MY_IP=`hostname -i`
+
+USE_HOSTNAME=false
+
+if ! $USE_HOSTNAME
+then 
+   TV_HOST=$TV_IP
+   MY_HOST=$MY_IP
+fi

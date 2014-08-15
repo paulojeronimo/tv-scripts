@@ -14,10 +14,10 @@ cat <<'EOF2' > $SCRIPT
 #!/bin/bash
 set +x
 SSHOPTS='-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
-grep -q "$HOSTNAME" ~/.ssh/known_hosts && unset SSHOPTS
-read -s -p "Enter \"$USER\" password for \"$HOSTNAME\": " SSHPASS
+grep -q "$MY_HOST" ~/.ssh/known_hosts && unset SSHOPTS
+read -s -p "Enter \"$USER\" password for \"$MY_HOST\": " SSHPASS
 echo; export SSHPASS
-sshpass -e ssh \$SSHOPTS -L 5900:localhost:5900 $USER@$HOSTNAME 'x11vnc -localhost -viewonly -display :0'
+sshpass -e ssh \$SSHOPTS -L 5900:localhost:5900 $USER@$MY_HOST 'x11vnc -localhost -viewonly -display :0'
 EOF2
 chmod +x $SCRIPT
 EOF

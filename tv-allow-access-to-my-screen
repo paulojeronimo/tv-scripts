@@ -13,11 +13,10 @@ ssh -T $TV_USER@$TV_HOST <<EOF
 cat <<'EOF2' > $SCRIPT
 #!/bin/bash
 set +x
-SSHOPTS='-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
-grep -q "$MY_HOST" ~/.ssh/known_hosts && unset SSHOPTS
 read -s -p "Enter \"$MY_USER\" password for \"$MY_HOST\": " SSHPASS
 echo; export SSHPASS
-sshpass -e ssh \$SSHOPTS -L 5900:localhost:5900 $MY_USER@$MY_HOST \
+sshpass -e ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
+-L 5900:localhost:5900 $MY_USER@$MY_HOST \
 "x11vnc -localhost -viewonly -display $MY_DISPLAY"
 EOF2
 chmod +x $SCRIPT

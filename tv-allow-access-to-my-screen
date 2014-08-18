@@ -16,8 +16,8 @@ set +x
 read -s -p "Enter \"$MY_USER\" password for \"$MY_HOST\": " SSHPASS
 echo; export SSHPASS
 sshpass -e ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
--L 5900:localhost:5900 $MY_USER@$MY_HOST \
-"x11vnc -localhost -viewonly -display $MY_DISPLAY"
+-L $VNC_PORT:localhost:$VNC_PORT $MY_USER@$MY_HOST \
+"x11vnc -localhost -rfbport $VNC_PORT -viewonly -display $MY_DISPLAY"
 EOF2
 chmod +x $SCRIPT
 EOF

@@ -6,7 +6,8 @@ source ~/.tv || exit 1
 op=$1
 case $op in
    on)
-      ssh $TV_USER@$TV_HOST "export DISPLAY=$TV_DISPLAY; vinagre localhost --vnc-scale -f &" & ;;
+      ssh $TV_USER@$TV_HOST "export DISPLAY=$TV_DISPLAY; \
+      vinagre localhost::$VNC_PORT --vnc-scale -f &" & ;;
    off)
       ssh $TV_USER@$TV_HOST 'pkill vinagre' ;;	
    *) 

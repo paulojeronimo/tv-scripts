@@ -11,6 +11,8 @@ MY_IP=${MY_IP:-`hostname -i`}
 MY_USER=${MY_USER:-$USER}
 MY_DISPLAY=${MY_DISPLAY:-:0}
 
+VNC_PORT=${VNC_PORT:-5900}
+
 USE_HOSTNAME=false
 
 if ! $USE_HOSTNAME

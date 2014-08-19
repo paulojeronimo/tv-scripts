@@ -7,7 +7,7 @@
 set +x
 source ~/.tv || exit 1
 
-SCRIPT=/tmp/access-${MY_USER}-screen.$USER
+SCRIPT=/tmp/access-${MY_USER}-screen.`date +%s`
 
 ssh -T $TV_USER@$TV_HOST <<EOF
 cat <<'EOF2' > $SCRIPT

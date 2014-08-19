@@ -3,7 +3,7 @@
 set +x
 source ~/.tv || exit 1
 
-ssh -t -L $VNC_PORT:localhost:$VNC_PORT $TV_USER@$TV_HOST \
-"x11vnc -localhost -rfbport $VNC_PORT -display $TV_DISPLAY" &
+ssh -f -t -L $VNC_PORT:localhost:$VNC_PORT $TV_USER@$TV_HOST \
+"x11vnc -localhost -rfbport $VNC_PORT -display $TV_DISPLAY"
 sleep 3
 vinagre localhost::$VNC_PORT --vnc-scale

@@ -1,0 +1,11 @@
+#!/bin/sh
+# Author: Paulo Jeronimo (@paulojeronimo, pj@paulojeronimo.info)
+set +x
+source ~/.tv || exit 1
+
+cmd="x11vnc -display $TV_DISPLAY -localhost -connect localhost"
+
+vncviewer -listen &
+pid=$!
+ssh -t -R 5500:localhost:5500 $TV_USER@$TV_HOST "$cmd"
+kill $pid

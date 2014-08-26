@@ -3,7 +3,7 @@ set +x
 
 TV_IP=${TV_IP:-10.196.6.105}
 TV_HOST=${TV_HOST:-tvmais2x.corp.caixa.gov.br}
-TV_USER=${TV_USER:-pj}
+TV_USER=${TV_USER:-zabbix}
 TV_DISPLAY=${TV_DISPLAY:-:0}
 
 case `uname` in

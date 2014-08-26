@@ -7,7 +7,7 @@ access_from_Linux() { vinagre localhost::$VNC_PORT --vnc-scale; }
 access_from_Darwin() { vncviewer localhost::$VNC_PORT -FullScreen; }
 
 ssh -f -t -L $VNC_PORT:localhost:$VNC_PORT $TV_USER@$TV_HOST \
-"x11vnc -localhost -rfbport $VNC_PORT -display $TV_DISPLAY -ncache 10" \
+"x11vnc -localhost -rfbport $VNC_PORT -display $TV_DISPLAY" \
 &> /tmp/tv-access.$$.log
 
 if [ "$1" != "--x11vnc-only" ]

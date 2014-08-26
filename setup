@@ -1,0 +1,23 @@
+#!/bin/bash
+# Author: Paulo Jeronimo (@paulojeronimo, pj@paulojeronimo.info)
+set +x
+source ~/.tv || exit 1
+
+local_setup_Darwin() {
+   sudo port install tigervnc
+}
+
+local_setup_Linux() {
+   sudo yum -y install vinagre
+}
+
+# tv-local_setup
+echo 'Doing TV setup ...'
+ssh -t $TV_USER@$TV_HOST '
+sudo yum -y install x11vnc
+'
+
+# local-local_setup
+echo
+echo 'Doing local setup ...'
+local_setup_`uname`

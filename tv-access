@@ -3,7 +3,16 @@
 set +x
 source ~/.tv || exit 1
 
+access_from_Linux() { vinagre localhost::$VNC_PORT --vnc-scale; }
+access_from_Darwin() { vncviewer localhost::$VNC_PORT -FullScreen; }
+
 ssh -f -t -L $VNC_PORT:localhost:$VNC_PORT $TV_USER@$TV_HOST \
-"x11vnc -localhost -rfbport $VNC_PORT -display $TV_DISPLAY"
-sleep 3
-vinagre localhost::$VNC_PORT --vnc-scale
+"x11vnc -localhost -rfbport $VNC_PORT -display $TV_DISPLAY -ncache 10" \
+&> /tmp/tv-access.$$.log
+
+if [ "$1" != "--x11vnc-only" ]
+then
+   sleep 3
+   f=access_from_`uname`
+   type $f &> /dev/null && $f || echo "$f not implemented!"
+fi
